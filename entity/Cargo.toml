@@ -1,0 +1,15 @@
+[package]
+name = "entity"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/mod.rs"
+name = "entity"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sea-orm = "0.8.0"
+serde = "1.0.138"
+serde_json = "1.0.82"
