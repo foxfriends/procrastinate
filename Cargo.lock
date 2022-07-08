@@ -1121,6 +1121,7 @@ dependencies = [
  "actix-web-actors",
  "anyhow",
  "dotenv",
+ "entity",
  "lazy_static",
  "log",
  "pretty_env_logger",

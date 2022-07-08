@@ -1,7 +1,6 @@
 use actix_web::web::{self, ServiceConfig};
 
 mod data;
-mod entity;
 mod websocket;
 
 pub use data::*;
