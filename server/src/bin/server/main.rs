@@ -19,6 +19,8 @@ async fn main() -> anyhow::Result<()> {
     HttpServer::new(move || {
         let logger = middleware::Logger::default().log_target("[http request]");
         let logger = filter_middleware::Filter::new(middleware::Compat::new(logger), |req| {
+            // TODO: if this project doesn't end up using graphql, get rid of this.
+            // it might still use graphql though... we'll see
             req.headers()
                 .get("Referer")
                 .and_then(|s| s.to_str().ok())
