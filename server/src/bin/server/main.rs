@@ -1,5 +1,5 @@
 use actix_web::{middleware, App, HttpServer};
-use procrastinate::Server;
+use server::Server;
 
 mod env;
 mod filter_middleware;

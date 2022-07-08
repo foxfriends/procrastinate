@@ -1,4 +1,4 @@
-use crate::{Id, Message};
+use procrastinate::{Id, Message};
 
 use super::SocketHandler;
 use actix::prelude::*;

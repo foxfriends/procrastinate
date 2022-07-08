@@ -1,6 +1,6 @@
 use super::SocketHandler;
-use crate::{Id, Message};
 use actix::prelude::*;
+use procrastinate::{Id, Message};
 use ron::Value;
 use serde::Serialize;
 

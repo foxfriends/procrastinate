@@ -2,4 +2,6 @@
 members = [
     "procrastinate",
     "entity",
+    "server",
+    "client",
 ]
