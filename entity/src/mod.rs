@@ -6,5 +6,6 @@ pub mod attachments;
 pub mod emojis;
 pub mod messages;
 pub mod reactions;
+pub mod replies;
 pub mod sea_orm_active_enums;
 pub mod users;

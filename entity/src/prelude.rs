@@ -4,4 +4,5 @@ pub use super::attachments::Entity as Attachments;
 pub use super::emojis::Entity as Emojis;
 pub use super::messages::Entity as Messages;
 pub use super::reactions::Entity as Reactions;
+pub use super::replies::Entity as Replies;
 pub use super::users::Entity as Users;

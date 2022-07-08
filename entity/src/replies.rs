@@ -8,37 +8,34 @@ pub struct Entity;
 
 impl EntityName for Entity {
     fn table_name(&self) -> &str {
-        "messages"
+        "replies"
     }
 }
 
 #[derive(Clone, Debug, PartialEq, DeriveModel, DeriveActiveModel, Serialize, Deserialize)]
 pub struct Model {
-    pub id: Uuid,
-    pub author_id: Uuid,
-    pub content: Json,
-    pub deleted: bool,
+    pub message_id: Uuid,
+    pub parent_id: Uuid,
     pub created_at: DateTimeWithTimeZone,
     pub modified_at: DateTimeWithTimeZone,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveColumn)]
 pub enum Column {
-    Id,
-    AuthorId,
-    Content,
-    Deleted,
+    MessageId,
+    ParentId,
     CreatedAt,
     ModifiedAt,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DerivePrimaryKey)]
 pub enum PrimaryKey {
-    Id,
+    MessageId,
+    ParentId,
 }
 
 impl PrimaryKeyTrait for PrimaryKey {
-    type ValueType = Uuid;
+    type ValueType = (Uuid, Uuid);
     fn auto_increment() -> bool {
         false
     }
@@ -46,19 +43,16 @@ impl PrimaryKeyTrait for PrimaryKey {
 
 #[derive(Copy, Clone, Debug, EnumIter)]
 pub enum Relation {
-    Users,
-    Reactions,
-    Attachments,
+    Messages2,
+    Messages1,
 }
 
 impl ColumnTrait for Column {
     type EntityName = Entity;
     fn def(&self) -> ColumnDef {
         match self {
-            Self::Id => ColumnType::Uuid.def(),
-            Self::AuthorId => ColumnType::Uuid.def(),
-            Self::Content => ColumnType::JsonBinary.def(),
-            Self::Deleted => ColumnType::Boolean.def(),
+            Self::MessageId => ColumnType::Uuid.def(),
+            Self::ParentId => ColumnType::Uuid.def(),
             Self::CreatedAt => ColumnType::TimestampWithTimeZone.def(),
             Self::ModifiedAt => ColumnType::TimestampWithTimeZone.def(),
         }
@@ -68,31 +62,15 @@ impl ColumnTrait for Column {
 impl RelationTrait for Relation {
     fn def(&self) -> RelationDef {
         match self {
-            Self::Users => Entity::belongs_to(super::users::Entity)
-                .from(Column::AuthorId)
-                .to(super::users::Column::Id)
+            Self::Messages2 => Entity::belongs_to(super::messages::Entity)
+                .from(Column::MessageId)
+                .to(super::messages::Column::Id)
                 .into(),
-            Self::Reactions => Entity::has_many(super::reactions::Entity).into(),
-            Self::Attachments => Entity::has_many(super::attachments::Entity).into(),
+            Self::Messages1 => Entity::belongs_to(super::messages::Entity)
+                .from(Column::ParentId)
+                .to(super::messages::Column::Id)
+                .into(),
         }
-    }
-}
-
-impl Related<super::users::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Users.def()
-    }
-}
-
-impl Related<super::reactions::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Reactions.def()
-    }
-}
-
-impl Related<super::attachments::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Attachments.def()
     }
 }
 
