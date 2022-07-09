@@ -1,6 +1,6 @@
 use super::ConnectionNode;
 
-pub struct Edge<T: ConnectionNode>(pub(crate) T);
+pub(crate) struct Edge<T: ConnectionNode>(pub T);
 
 macro_rules! connection_edge {
     (impl $(<$($lt:lifetime),+>)? for $t:ty as $n:literal) => {

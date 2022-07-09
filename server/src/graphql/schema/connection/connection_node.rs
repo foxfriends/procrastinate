@@ -1,5 +1,5 @@
 use super::Cursor;
 
-pub trait ConnectionNode {
+pub(crate) trait ConnectionNode {
     fn cursor(&self) -> Cursor;
 }

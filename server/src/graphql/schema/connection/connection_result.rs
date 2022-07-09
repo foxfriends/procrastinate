@@ -1,8 +1,8 @@
 use super::{Connection, Connector};
 
-pub struct ConnectionResult<T: Connector> {
-    pub(crate) connector: T,
-    pub(crate) connection: Connection<T::Node>,
+pub(crate) struct ConnectionResult<T: Connector> {
+    pub connector: T,
+    pub connection: Connection<T::Node>,
 }
 
 impl<T: Connector> ConnectionResult<T> {

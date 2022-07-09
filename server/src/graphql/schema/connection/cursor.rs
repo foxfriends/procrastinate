@@ -3,7 +3,7 @@ use juniper::{InputValue, ParseScalarResult, ParseScalarValue, ScalarToken, Scal
 #[derive(
     Clone, Eq, PartialEq, Hash, Debug, serde::Serialize, serde::Deserialize, juniper::GraphQLScalar,
 )]
-pub enum Cursor {
+pub(crate) enum Cursor {
     End,
     Start,
     Node(String),

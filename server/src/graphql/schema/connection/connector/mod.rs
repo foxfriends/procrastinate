@@ -1,16 +1,13 @@
 use super::{Connection, ConnectionNode, ConnectionResult, Cursor};
 use juniper::FieldResult;
 
-mod iterator_connector;
-pub use iterator_connector::IteratorConnector;
-
 #[async_trait::async_trait]
-pub trait Connector: Sync + Send {
+pub(crate) trait Connector: Sync + Send {
     type Node: ConnectionNode;
 
-    async fn len(&self) -> FieldResult<usize>;
-    async fn first(&self, count: usize, after: Cursor) -> FieldResult<Connection<Self::Node>>;
-    async fn last(&self, count: usize, before: Cursor) -> FieldResult<Connection<Self::Node>>;
+    async fn len(&self) -> FieldResult<u64>;
+    async fn first(&self, count: u64, after: Cursor) -> FieldResult<Connection<Self::Node>>;
+    async fn last(&self, count: u64, before: Cursor) -> FieldResult<Connection<Self::Node>>;
 
     async fn get(
         self,
@@ -23,10 +20,10 @@ pub trait Connector: Sync + Send {
         Self: Sized,
     {
         let connection = if let Some(count) = first {
-            let count = if count < 0 { 0 } else { count as usize };
+            let count = if count < 0 { 0 } else { count as u64 };
             self.first(count, after.unwrap_or(Cursor::Start)).await?
         } else if let Some(count) = last {
-            let count = if count < 0 { 0 } else { count as usize };
+            let count = if count < 0 { 0 } else { count as u64 };
             self.last(count, before.unwrap_or(Cursor::End)).await?
         } else {
             self.initial().await?
