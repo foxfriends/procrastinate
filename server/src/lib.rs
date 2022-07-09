@@ -4,6 +4,7 @@ use sea_orm::{Database, DatabaseConnection};
 use std::path::PathBuf;
 
 mod websocket;
+mod graphql;
 
 #[derive(Clone)]
 pub struct Server {
@@ -20,6 +21,7 @@ impl Server {
     pub fn configure(&self, config: &mut ServiceConfig) {
         config
             .app_data(web::Data::new(self.database.clone()))
+            .configure(graphql::configure)
             .configure(websocket::configure)
             .service(Files::new("/", &self.webapp_dir).index_file("index.html"));
     }

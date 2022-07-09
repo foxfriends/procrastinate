@@ -1,8 +1,7 @@
-use procrastinate::{Id, Message};
-
 use super::SocketHandler;
 use actix::prelude::*;
 use serde::Deserialize;
+use uuid::Uuid;
 
 #[derive(Deserialize, Message)]
 #[rtype(result = "()")]
@@ -11,11 +10,11 @@ pub struct Recv(Payload);
 
 #[derive(Deserialize)]
 enum Payload {
-    Reply { reply_to: Id, content: Message },
+    Reply { reply_to: Uuid, content: String },
 }
 
 impl Handler<Recv> for SocketHandler {
     type Result = ();
 
-    fn handle(&mut self, Recv(message): Recv, ctx: &mut Self::Context) {}
+    fn handle(&mut self, Recv(_message): Recv, _ctx: &mut Self::Context) {}
 }

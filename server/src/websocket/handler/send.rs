@@ -1,8 +1,8 @@
 use super::SocketHandler;
 use actix::prelude::*;
-use procrastinate::{Id, Message};
 use ron::Value;
 use serde::Serialize;
+use uuid::Uuid;
 
 #[derive(Message)]
 #[rtype(result = "()")]
@@ -11,8 +11,8 @@ pub struct Send(Payload);
 #[derive(Serialize)]
 enum Payload {
     Reply {
-        reply_to: Id,
-        content: Message,
+        reply_to: Uuid,
+        content: String,
     },
     Error {
         code: &'static str,

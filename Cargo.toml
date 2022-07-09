@@ -1,6 +1,5 @@
 [workspace]
 members = [
-    "procrastinate",
     "entity",
     "server",
     "client",
