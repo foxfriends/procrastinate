@@ -32,8 +32,14 @@ impl Query {
     }
 
     /// Gets a specific message
-    async fn message<'a>(&'a self, context: &'a Context, id: Uuid) -> FieldResult<Option<Message<'a>>> {
-        let message = entity::messages::Entity::find_by_id(id).one(context.db()).await?;
+    async fn message<'a>(
+        &'a self,
+        context: &'a Context,
+        id: Uuid,
+    ) -> FieldResult<Option<Message<'a>>> {
+        let message = entity::messages::Entity::find_by_id(id)
+            .one(context.db())
+            .await?;
         Ok(message.map(Message::from))
     }
 }

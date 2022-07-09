@@ -76,11 +76,7 @@ impl<'a> Connector for MessagesConnector<'a> {
             .map(|count: u64| count > 0)
             .unwrap_or(false);
 
-        let edges: Vec<_> = entities
-            .into_iter()
-            .map(Message::from)
-            .map(Edge)
-            .collect();
+        let edges: Vec<_> = entities.into_iter().map(Message::from).map(Edge).collect();
 
         let page_info = PageInfo {
             has_previous_page,
@@ -131,11 +127,7 @@ impl<'a> Connector for MessagesConnector<'a> {
             .map(|count: u64| count > 0)
             .unwrap_or(false);
 
-        let edges: Vec<_> = entities
-            .into_iter()
-            .map(Message::from)
-            .map(Edge)
-            .collect();
+        let edges: Vec<_> = entities.into_iter().map(Message::from).map(Edge).collect();
 
         let page_info = PageInfo {
             has_previous_page,
