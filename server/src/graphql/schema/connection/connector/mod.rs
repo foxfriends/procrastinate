@@ -1,6 +1,9 @@
 use super::{Connection, ConnectionNode, ConnectionResult, Cursor};
 use juniper::FieldResult;
 
+mod database_connector;
+pub(crate) use database_connector::DatabaseConnector;
+
 #[async_trait::async_trait]
 pub(crate) trait Connector: Sync + Send {
     type Node: ConnectionNode;

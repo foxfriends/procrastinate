@@ -8,7 +8,7 @@ mod page_info;
 pub(crate) use connection_node::ConnectionNode;
 pub(crate) use connection_result::connection;
 pub(crate) use connection_result::ConnectionResult;
-pub(crate) use connector::Connector;
+pub(crate) use connector::{Connector, DatabaseConnector};
 pub(crate) use cursor::Cursor;
 pub(crate) use edge::connection_edge;
 pub(crate) use edge::Edge;

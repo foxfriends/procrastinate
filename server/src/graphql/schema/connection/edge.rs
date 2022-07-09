@@ -12,7 +12,7 @@ macro_rules! connection_edge {
 
             pub fn cursor(&self) -> $crate::graphql::schema::connection::Cursor {
                 use $crate::graphql::schema::connection::ConnectionNode;
-                self.0.cursor()
+                $crate::graphql::schema::connection::Cursor::Node(self.0.cursor())
             }
         }
     };

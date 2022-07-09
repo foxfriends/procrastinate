@@ -1,4 +1,4 @@
-use crate::graphql::schema::connection::{connection_edge, ConnectionNode, Cursor};
+use crate::graphql::schema::connection::{connection_edge, ConnectionNode};
 use crate::graphql::schema::Context;
 use std::borrow::Cow;
 use uuid::Uuid;
@@ -21,15 +21,15 @@ impl<'a> From<&'a entity::messages::Model> for Message<'a> {
 }
 
 #[juniper::graphql_object(context = Context)]
-impl Message<'_> {
+impl<'a> Message<'a> {
     fn id(&self) -> Uuid {
         self.0.id
     }
 }
 
 impl ConnectionNode for Message<'_> {
-    fn cursor(&self) -> Cursor {
-        Cursor::Node(self.0.id.to_string())
+    fn cursor(&self) -> String {
+        serde_json::to_string(&self.0.created_at).unwrap()
     }
 }
 
