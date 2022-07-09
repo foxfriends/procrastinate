@@ -7,6 +7,9 @@ use uuid::Uuid;
 mod messages;
 use messages::{Message, MessagesConnector};
 
+mod users;
+use users::{User, UsersConnector};
+
 pub(crate) struct Query;
 
 #[juniper::graphql_object(context = Context)]
@@ -41,5 +44,28 @@ impl Query {
             .one(context.db())
             .await?;
         Ok(message.map(Message::from))
+    }
+
+    /// Lists users
+    async fn users_connection<'a>(
+        &'a self,
+        context: &'a Context,
+        thread: Option<Uuid>,
+        first: Option<i32>,
+        after: Option<Cursor>,
+        last: Option<i32>,
+        before: Option<Cursor>,
+    ) -> FieldResult<ConnectionResult<UsersConnector<'a>>> {
+        UsersConnector::new(context)
+            .get(first.map(Into::into), after, last.map(Into::into), before)
+            .await
+    }
+
+    /// Gets a specific user
+    async fn user<'a>(&'a self, context: &'a Context, id: Uuid) -> FieldResult<Option<User<'a>>> {
+        let message = entity::users::Entity::find_by_id(id)
+            .one(context.db())
+            .await?;
+        Ok(message.map(User::from))
     }
 }
