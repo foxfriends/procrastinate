@@ -50,7 +50,6 @@ impl Query {
     async fn users_connection<'a>(
         &'a self,
         context: &'a Context,
-        thread: Option<Uuid>,
         first: Option<i32>,
         after: Option<Cursor>,
         last: Option<i32>,
