@@ -8,26 +8,26 @@ pub struct Entity;
 
 impl EntityName for Entity {
     fn table_name(&self) -> &str {
-        "users"
+        "ethaddresses"
     }
 }
 
 #[derive(Clone, Debug, PartialEq, DeriveModel, DeriveActiveModel, Serialize, Deserialize)]
 pub struct Model {
     pub id: Uuid,
-    pub display_name: String,
-    pub full_name: String,
+    pub user_id: Uuid,
+    pub address: String,
     pub created_at: DateTimeWithTimeZone,
-    pub modified_at: DateTimeWithTimeZone,
+    pub updated_at: DateTimeWithTimeZone,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveColumn)]
 pub enum Column {
     Id,
-    DisplayName,
-    FullName,
+    UserId,
+    Address,
     CreatedAt,
-    ModifiedAt,
+    UpdatedAt,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DerivePrimaryKey)]
@@ -44,10 +44,7 @@ impl PrimaryKeyTrait for PrimaryKey {
 
 #[derive(Copy, Clone, Debug, EnumIter)]
 pub enum Relation {
-    Messages,
-    Emojis,
-    Reactions,
-    Ethaddresses,
+    Users,
 }
 
 impl ColumnTrait for Column {
@@ -55,10 +52,10 @@ impl ColumnTrait for Column {
     fn def(&self) -> ColumnDef {
         match self {
             Self::Id => ColumnType::Uuid.def(),
-            Self::DisplayName => ColumnType::String(Some(128u32)).def(),
-            Self::FullName => ColumnType::String(Some(128u32)).def(),
+            Self::UserId => ColumnType::Uuid.def(),
+            Self::Address => ColumnType::Char(Some(40u32)).def().unique(),
             Self::CreatedAt => ColumnType::TimestampWithTimeZone.def(),
-            Self::ModifiedAt => ColumnType::TimestampWithTimeZone.def(),
+            Self::UpdatedAt => ColumnType::TimestampWithTimeZone.def(),
         }
     }
 }
@@ -66,35 +63,17 @@ impl ColumnTrait for Column {
 impl RelationTrait for Relation {
     fn def(&self) -> RelationDef {
         match self {
-            Self::Messages => Entity::has_many(super::messages::Entity).into(),
-            Self::Emojis => Entity::has_many(super::emojis::Entity).into(),
-            Self::Reactions => Entity::has_many(super::reactions::Entity).into(),
-            Self::Ethaddresses => Entity::has_many(super::ethaddresses::Entity).into(),
+            Self::Users => Entity::belongs_to(super::users::Entity)
+                .from(Column::UserId)
+                .to(super::users::Column::Id)
+                .into(),
         }
     }
 }
 
-impl Related<super::messages::Entity> for Entity {
+impl Related<super::users::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::Messages.def()
-    }
-}
-
-impl Related<super::emojis::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Emojis.def()
-    }
-}
-
-impl Related<super::reactions::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Reactions.def()
-    }
-}
-
-impl Related<super::ethaddresses::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Ethaddresses.def()
+        Relation::Users.def()
     }
 }
 

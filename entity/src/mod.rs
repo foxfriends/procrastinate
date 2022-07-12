@@ -4,6 +4,7 @@ pub mod prelude;
 
 pub mod attachments;
 pub mod emojis;
+pub mod ethaddresses;
 pub mod messages;
 pub mod reactions;
 pub mod replies;
