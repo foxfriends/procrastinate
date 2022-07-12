@@ -34,11 +34,11 @@ impl Query {
     }
 
     /// Gets a specific message
-    async fn message<'a>(
-        &'a self,
-        context: &'a Context,
+    async fn message(
+        &self,
+        context: &Context,
         id: Uuid,
-    ) -> FieldResult<Option<Message<'a>>> {
+    ) -> FieldResult<Option<Message<'static>>> {
         let message = entity::messages::Entity::find_by_id(id)
             .one(context.db())
             .await?;
@@ -60,10 +60,10 @@ impl Query {
     }
 
     /// Gets a specific user
-    async fn user<'a>(&'a self, context: &'a Context, id: Uuid) -> FieldResult<Option<User<'a>>> {
-        let message = entity::users::Entity::find_by_id(id)
+    async fn user(&self, context: &Context, id: Uuid) -> FieldResult<Option<User<'static>>> {
+        let user = entity::users::Entity::find_by_id(id)
             .one(context.db())
             .await?;
-        Ok(message.map(User::from))
+        Ok(user.map(User::from))
     }
 }

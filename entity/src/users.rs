@@ -16,7 +16,7 @@ impl EntityName for Entity {
 pub struct Model {
     pub id: Uuid,
     pub display_name: String,
-    pub full_name: String,
+    pub full_name: Option<String>,
     pub created_at: DateTimeWithTimeZone,
     pub modified_at: DateTimeWithTimeZone,
 }
@@ -56,7 +56,7 @@ impl ColumnTrait for Column {
         match self {
             Self::Id => ColumnType::Uuid.def(),
             Self::DisplayName => ColumnType::String(Some(128u32)).def(),
-            Self::FullName => ColumnType::String(Some(128u32)).def(),
+            Self::FullName => ColumnType::String(Some(128u32)).def().null(),
             Self::CreatedAt => ColumnType::TimestampWithTimeZone.def(),
             Self::ModifiedAt => ColumnType::TimestampWithTimeZone.def(),
         }

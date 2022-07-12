@@ -1255,6 +1255,7 @@ source = "git+https://github.com/graphql-rust/juniper?rev=30d80dff12212ab59f08f8
 dependencies = [
  "async-trait",
  "bson",
+ "chrono",
  "fnv",
  "futures",
  "futures-enum",

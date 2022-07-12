@@ -14,7 +14,7 @@ actix-web-actors = "4.1.0"
 anyhow = "1.0.58"
 dotenv = "0.15.0"
 entity = { path = "../entity" }
-juniper = { git = "https://github.com/graphql-rust/juniper", rev = "30d80dff12212ab59f08f850338abc9d0680a42a", features = ["uuid"] }
+juniper = { git = "https://github.com/graphql-rust/juniper", rev = "30d80dff12212ab59f08f850338abc9d0680a42a", features = ["uuid", "chrono"] }
 juniper_actix = { git = "https://github.com/graphql-rust/juniper", rev = "30d80dff12212ab59f08f850338abc9d0680a42a" }
 lazy_static = "1.4.0"
 log = "0.4.17"

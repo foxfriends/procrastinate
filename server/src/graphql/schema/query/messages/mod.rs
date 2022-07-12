@@ -1,5 +1,8 @@
+use super::User;
 use crate::graphql::schema::connection::{connection_edge, ConnectionNode};
 use crate::graphql::schema::Context;
+use juniper::FieldResult;
+use sea_orm::prelude::*;
 use std::borrow::Cow;
 use uuid::Uuid;
 
@@ -24,6 +27,14 @@ impl<'a> From<&'a entity::messages::Model> for Message<'a> {
 impl<'a> Message<'a> {
     fn id(&self) -> Uuid {
         self.0.id
+    }
+
+    async fn author(&self, context: &Context) -> FieldResult<User<'static>> {
+        let user = entity::users::Entity::find_by_id(self.0.author_id)
+            .one(context.db())
+            .await?
+            .unwrap();
+        Ok(User::from(user))
     }
 }
 

@@ -1,5 +1,6 @@
 use crate::graphql::schema::connection::{connection_edge, ConnectionNode};
 use crate::graphql::schema::Context;
+use chrono::{DateTime, FixedOffset};
 use std::borrow::Cow;
 use uuid::Uuid;
 
@@ -24,6 +25,18 @@ impl<'a> From<&'a entity::users::Model> for User<'a> {
 impl<'a> User<'a> {
     fn id(&self) -> Uuid {
         self.0.id
+    }
+
+    fn display_name(&self) -> &str {
+        &self.0.display_name
+    }
+
+    fn full_name(&self) -> Option<&str> {
+        self.0.full_name.as_deref()
+    }
+
+    fn created_at(&self) -> DateTime<FixedOffset> {
+        self.0.created_at
     }
 }
 
