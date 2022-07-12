@@ -31,6 +31,10 @@ impl<'a> DatabaseConnector for MessagesConnector<'a> {
         self.context.db()
     }
 
+    // NOTE: using purely created_at for the cursor is not great, if two entries
+    // have the exact same created_at, we might miss one if the query lands on
+    // that date. Should make something more reliable... but right now not worth
+    // it.
     fn parse_cursor(&self, cursor: &str) -> FieldResult<sea_orm::Value> {
         Ok(serde_json::from_str::<DateTime<Utc>>(cursor)?.into())
     }
