@@ -14,7 +14,7 @@ pub(crate) struct Query;
 
 #[juniper::graphql_object(context = Context)]
 impl Query {
-    /// Currently running version of Battlefield server
+    /// Currently server version
     fn version() -> &'static str {
         env!("CARGO_PKG_VERSION")
     }
