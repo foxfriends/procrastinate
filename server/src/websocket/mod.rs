@@ -5,6 +5,6 @@ mod notifications;
 
 use notifications::notifications;
 
-pub fn configure(config: &mut ServiceConfig) {
+pub(crate) fn configure(config: &mut ServiceConfig) {
     config.route("/ws", web::get().to(notifications));
 }

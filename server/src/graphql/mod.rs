@@ -22,7 +22,7 @@ async fn graphql(
     graphql_handler(&schema, &context, req, payload).await
 }
 
-pub fn configure(config: &mut ServiceConfig) {
+pub(crate) fn configure(config: &mut ServiceConfig) {
     config
         .service(
             web::resource("/graphql")

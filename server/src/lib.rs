@@ -24,6 +24,7 @@ impl Server {
     pub fn configure(&self, config: &mut ServiceConfig) {
         config
             .app_data(web::Data::new(self.database.clone()))
+            .configure(rest::configure)
             .configure(graphql::configure)
             .configure(websocket::configure)
             .service(Files::new("/", &self.webapp_dir).index_file("index.html"));
