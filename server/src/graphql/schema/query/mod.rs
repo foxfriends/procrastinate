@@ -34,11 +34,7 @@ impl Query {
     }
 
     /// Gets a specific message
-    async fn message(
-        &self,
-        context: &Context,
-        id: Uuid,
-    ) -> FieldResult<Option<Message<'static>>> {
+    async fn message(&self, context: &Context, id: Uuid) -> FieldResult<Option<Message<'static>>> {
         let message = entity::messages::Entity::find_by_id(id)
             .one(context.db())
             .await?;

@@ -13,6 +13,8 @@ lazy_static! {
         .unwrap();
     pub static ref DATABASE_URL: String =
         std::env::var("DATABASE_URL").expect("DATABASE_URL is required");
+    pub static ref ETHEREUM_URL: String =
+        std::env::var("ETHEREUM_URL").expect("ETHEREUM_URL is required");
     pub static ref WEBAPP_DIR: PathBuf = std::env::var("WEBAPP_DIR")
         .expect("WEBAPP_DIR is required")
         .parse()

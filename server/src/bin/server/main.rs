@@ -14,7 +14,12 @@ async fn main() -> anyhow::Result<()> {
 
     log::info!("Redlack served on {}:{}", host, port);
 
-    let server = Server::new(&*env::DATABASE_URL, env::WEBAPP_DIR.clone()).await?;
+    let server = Server::new(
+        &*env::DATABASE_URL,
+        &*env::ETHEREUM_URL,
+        env::WEBAPP_DIR.clone(),
+    )
+    .await?;
 
     HttpServer::new(move || {
         let logger = middleware::Logger::default().log_target("[http request]");

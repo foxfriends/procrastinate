@@ -26,5 +26,7 @@ url = { version = "2.2.2", features = ["serde"] }
 actix-files = "0.6.1"
 async-trait = "0.1.56"
 serde_json = "1.0.82"
-uuid = { version = "0.8", features = ["serde"] }
+uuid = { version = "0.8", features = ["serde", "v4"] }
 chrono = { version = "0.4.19", features = ["serde"] }
+web3 = "0.18.0"
+hex = "0.4.3"
