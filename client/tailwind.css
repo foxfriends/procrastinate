@@ -21,3 +21,17 @@ a {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .at-center {
+    @apply at-x-center at-y-center;
+  }
+
+  .at-x-center {
+    @apply left-1/2 -translate-x-1/2
+  }
+
+  .at-y-center {
+    @apply top-1/2 -translate-y-1/2
+  }
+}
