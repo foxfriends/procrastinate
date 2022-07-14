@@ -21,11 +21,11 @@ pub(crate) fn home_page() -> Html {
                     // Cyan bottom line --o
                     <img class="relative shrink-0" src="/public/rail-fork.svg" />
                     <div class="mt-auto basis-[200px] h-[8px] bg-cyan" />
-                    <div class="relative mt-auto h-[8px] w-[48px] translate-x-[-4px] shrink-0">
-                        <div class="absolute w-[8px] h-[8px] bg-cyan at-center rounded-full shrink-0" />
-                        <div class="absolute border-[8px] border-cyan rounded-full h-[48px] w-[48px] at-center" />
+                    <div class="relative h-[8px] w-[48px] mt-auto shrink-0 translate-x-[-4px]">
+                        <div class="absolute at-center w-[8px] h-[8px] shrink-0 bg-cyan rounded-full" />
+                        <div class="absolute at-center h-[48px] w-[48px] border-[8px] border-cyan rounded-full" />
                     </div>
-                    <div class="mt-auto mb-[4px] translate-y-1/2 flex items-center ml-4 shrink-0 whitespace-nowrap mr-auto">
+                    <div class="flex items-center mt-auto mb-[4px] ml-4 mr-auto shrink-0  whitespace-nowrap translate-y-1/2">
                         <Link class="font-display text-xl" to={Route::App}>
                             {"Let's go!"}
                         </Link>
