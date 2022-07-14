@@ -587,7 +587,9 @@ dependencies = [
 name = "client"
 version = "0.1.0"
 dependencies = [
+ "futures",
  "gloo 0.8.0",
+ "wasm-bindgen-futures",
  "web3",
  "yew",
  "yew-router",

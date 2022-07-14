@@ -1,4 +1,4 @@
-use actix_files::Files;
+use actix_files::{Files, NamedFile};
 use actix_web::web::{self, ServiceConfig};
 use sea_orm::{Database, DatabaseConnection};
 use std::path::PathBuf;
@@ -32,12 +32,14 @@ impl Server {
     }
 
     pub fn configure(&self, config: &mut ServiceConfig) {
+        let index_file = self.webapp_dir.join("index.html");
         config
             .app_data(web::Data::new(self.web3.clone()))
             .app_data(web::Data::new(self.database.clone()))
             .configure(rest::configure)
             .configure(graphql::configure)
             .configure(websocket::configure)
-            .service(Files::new("/", &self.webapp_dir).index_file("index.html"));
+            .service(Files::new("/", &self.webapp_dir).index_file("index.html"))
+            .default_service(web::get().to(move || NamedFile::open_async(index_file.clone())));
     }
 }

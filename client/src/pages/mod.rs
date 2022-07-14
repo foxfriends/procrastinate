@@ -1,3 +1,5 @@
-mod sign_in_page;
+mod app_page;
+mod home_page;
 
-pub(crate) use sign_in_page::SignInPage;
+pub(crate) use app_page::AppPage;
+pub(crate) use home_page::HomePage;

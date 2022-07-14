@@ -1,23 +1,28 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-mod index;
 mod layout;
-
-use index::Index;
 use layout::Layout;
+
+mod app;
+mod index;
+
+use app::App;
+use index::Index;
 
 #[derive(Clone, PartialEq, Routable, Debug)]
 pub(crate) enum Route {
-    // Ultimate SPA - everything is the app. Someday this may change...
     #[at("/")]
     #[not_found]
     Index,
+    #[at("/app")]
+    App,
 }
 
 fn switch(route: &Route) -> Html {
     match route {
         Route::Index => html! { <Index /> },
+        Route::App => html! { <App /> },
     }
 }
 

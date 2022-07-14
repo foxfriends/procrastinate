@@ -1,19 +1,26 @@
 use std::rc::Rc;
 use web3::transports::eip_1193::{Eip1193, Provider};
-use web3::Web3;
 use yew::prelude::*;
 
 #[derive(Clone, Debug)]
-struct Web3Ref(Rc<Web3<Eip1193>>);
+pub(crate) struct Web3(Rc<web3::Web3<Eip1193>>);
 
-impl PartialEq for Web3Ref {
+impl PartialEq for Web3 {
     fn eq(&self, other: &Self) -> bool {
         Rc::ptr_eq(&self.0, &other.0)
     }
 }
 
-pub(crate) fn use_web3() -> Rc<Web3<Eip1193>> {
-    use_context::<Web3Ref>().unwrap().0
+impl std::ops::Deref for Web3 {
+    type Target = web3::Web3<Eip1193>;
+
+    fn deref(&self) -> &Self::Target {
+        self.0.as_ref()
+    }
+}
+
+pub(crate) fn use_web3() -> Option<Web3> {
+    use_context::<Option<Web3>>().unwrap()
 }
 
 #[derive(Properties, PartialEq)]
@@ -26,21 +33,13 @@ pub(crate) fn web3_provider(props: &Props) -> Html {
     let web3 = Provider::default()
         .unwrap()
         .map(Eip1193::new)
-        .map(Web3::new)
+        .map(web3::Web3::new)
         .map(Rc::new)
-        .map(Web3Ref);
+        .map(Web3);
 
-    match web3 {
-        Some(web3) => html! {
-            <ContextProvider<Web3Ref> context={web3}>
-                {for props.children.iter()}
-            </ContextProvider<Web3Ref>>
-        },
-        None => html! {
-            <div>
-                {"A Web3 enabled browser is required. Try installing "}
-                <a href="https://metamask.io/">{"Metamask"}</a>
-            </div>
-        },
+    html! {
+        <ContextProvider<Option<Web3>> context={web3}>
+            {for props.children.iter()}
+        </ContextProvider<Option<Web3>>>
     }
 }
