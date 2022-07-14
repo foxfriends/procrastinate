@@ -1,13 +1,21 @@
 use yew::prelude::*;
+use yew_router::prelude::*;
+
+mod components;
+mod hooks;
+mod pages;
+mod routes;
+
+use hooks::use_web3::Web3Provider;
 
 #[function_component(App)]
 fn app() -> Html {
     html! {
-        <div class="flex flex-col min-h-screen">
-            <div class="grow">
-                {"Hello world"}
-            </div>
-        </div>
+        <Web3Provider>
+            <BrowserRouter>
+                <routes::Router />
+            </BrowserRouter>
+        </Web3Provider>
     }
 }
 
