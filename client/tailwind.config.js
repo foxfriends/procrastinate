@@ -12,6 +12,18 @@ module.exports = {
         red: "#D44729",
         black: "#0E202C",
       },
+      spacing: {
+        rail: "6px",
+        stop: "48px",
+        ring: "40px",
+        "rail-lg": "8px",
+        "stop-lg": "64px",
+        "ring-lg": "48px",
+      },
+      borderWidth: {
+        rail: "6px",
+        "rail-lg": "8px",
+      },
       fontFamily: {
         body: ["Merriweather Sans", "sans-serif"],
         display: ["Basteleur", "sans-serif"],

@@ -2,6 +2,10 @@ use crate::hooks::use_accounts;
 use gloo::console;
 use yew::prelude::*;
 
+mod rail;
+
+use rail::Rail;
+
 #[derive(Properties, PartialEq, Debug)]
 pub(crate) struct Props {
     pub children: Children,
@@ -14,11 +18,15 @@ pub(crate) fn sign_in_page(props: &Props) -> Html {
     match accounts {
         None => {
             html! {
-                "A web3 enabled browser is required"
+                <Rail line="bg-red" end="bg-red">
+                    <div class="font-display text-lg text-red/90">
+                        {"A web3 enabled browser is required"}
+                    </div>
+                </Rail>
             }
         }
         Some(accounts) if accounts.is_empty() => {
-            let connect_accounts = move |_| {
+            let connect_account = move |_| {
                 let accounts = accounts.clone();
                 wasm_bindgen_futures::spawn_local(async move {
                     // TODO: toast these things
@@ -28,9 +36,11 @@ pub(crate) fn sign_in_page(props: &Props) -> Html {
                 });
             };
             html! {
-                <button onclick={connect_accounts}>
-                    {"Connect Accounts"}
-                </button>
+                <Rail line="bg-gradient-to-r from-red via-yellow to-cyan" end="bg-cyan">
+                    <button class="font-display text-lg text-cyan/90 hover:text-white" onclick={connect_account}>
+                        {"Connect Account"}
+                    </button>
+                </Rail>
             }
         }
         Some(..) => {

@@ -18,7 +18,7 @@ pub(crate) fn link(props: &Props) -> Html {
         <RouterLink<Route>
             disabled={props.disabled}
             to={props.to.clone()}
-            classes={classes!("text-cyan", "hover:text-white", props.class.clone())}
+            classes={classes!("text-cyan/90", "hover:text-white", props.class.clone())}
         >
             {for props.children.iter()}
         </RouterLink<Route>>

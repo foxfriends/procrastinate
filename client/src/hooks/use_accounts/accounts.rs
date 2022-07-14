@@ -36,19 +36,11 @@ impl Accounts {
         self.accounts.is_empty()
     }
 
-    pub fn len(&self) -> usize {
-        self.accounts.len()
-    }
-
     pub fn primary(&self) -> Option<Account> {
         self.accounts.first().cloned()
     }
 
     pub async fn connect(&self) -> web3::error::Result<Vec<Address>> {
         self.web3.eth().request_accounts().await
-    }
-
-    pub fn iter(&self) -> impl Iterator<Item = &Account> {
-        self.accounts.iter()
     }
 }
