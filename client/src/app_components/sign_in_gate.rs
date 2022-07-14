@@ -18,7 +18,7 @@ pub(crate) fn sign_in_page(props: &Props) -> Html {
             }
         }
         Some(accounts) if accounts.is_empty() => {
-            let sign_in = move |_| {
+            let connect_accounts = move |_| {
                 let accounts = accounts.clone();
                 wasm_bindgen_futures::spawn_local(async move {
                     // TODO: toast these things
@@ -28,8 +28,8 @@ pub(crate) fn sign_in_page(props: &Props) -> Html {
                 });
             };
             html! {
-                <button onclick={sign_in}>
-                    {"Sign in"}
+                <button onclick={connect_accounts}>
+                    {"Connect Accounts"}
                 </button>
             }
         }

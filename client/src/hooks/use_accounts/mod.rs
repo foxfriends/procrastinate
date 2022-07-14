@@ -13,6 +13,10 @@ pub(crate) fn use_accounts() -> Option<Accounts> {
     use_context::<Option<Accounts>>().unwrap()
 }
 
+pub(crate) fn use_account() -> Option<Account> {
+    use_context::<Option<Accounts>>().unwrap().and_then(|accounts| accounts.primary())
+}
+
 #[derive(Properties, PartialEq)]
 pub(crate) struct Props {
     pub children: Children,

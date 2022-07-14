@@ -1,12 +1,12 @@
 use yew::prelude::*;
 
-use crate::components::SignInGate;
+use crate::app_components::{MainNav, SignInGate};
 
 #[function_component(AppPage)]
 pub(crate) fn app_page() -> Html {
     html! {
         <SignInGate>
-            {"Welcome to the app"}
+            <MainNav />
         </SignInGate>
     }
 }
