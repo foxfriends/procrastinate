@@ -15,7 +15,7 @@ module.exports = {
       spacing: {
         rail: "6px",
         stop: "48px",
-        ring: "40px",
+        ring: "38px",
         "rail-lg": "8px",
         "stop-lg": "64px",
         "ring-lg": "48px",
