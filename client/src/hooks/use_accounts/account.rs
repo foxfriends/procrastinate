@@ -1,7 +1,7 @@
 use crate::hooks::use_web3::Web3;
 use std::fmt;
 use web3::signing::keccak256;
-use web3::types::Address;
+use web3::types::{Address, H520};
 
 #[derive(Clone, Debug)]
 pub(crate) struct Account {
@@ -27,6 +27,13 @@ impl Account {
 
     pub fn obscured(&self) -> Obscured {
         Obscured(self.address)
+    }
+
+    pub async fn sign(&self, message: &str) -> web3::Result<H520> {
+        self.web3
+            .personal()
+            .sign(From::from(message), self.address, "")
+            .await
     }
 }
 

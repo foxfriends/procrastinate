@@ -46,7 +46,7 @@ pub(crate) fn accounts_provider(props: &Props) -> Html {
                                 Ok(addresses) => {
                                     accounts.set(Some(Accounts::new(addresses, web3)));
                                 }
-                                Err(error) => console::error!("Error: {}", error.to_string()),
+                                Err(error) => console::error!(error.to_string()),
                             }
                         }
                     });

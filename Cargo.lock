@@ -591,6 +591,7 @@ dependencies = [
  "gloo 0.8.0",
  "hex",
  "serde",
+ "serde_json",
  "wasm-bindgen-futures",
  "web-sys",
  "web3",

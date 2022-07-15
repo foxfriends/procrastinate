@@ -1,5 +1,5 @@
 use crate::components::{Branch, DisplayButton, Rail, RailColor, Ring, Stop, Track, Tracks};
-use crate::hooks::use_accounts;
+use crate::hooks::{use_accounts, use_api};
 use gloo::console;
 use yew::prelude::*;
 
@@ -32,7 +32,7 @@ pub(crate) fn sign_in_page(props: &Props) -> Html {
                 wasm_bindgen_futures::spawn_local(async move {
                     // TODO: toast these things
                     if let Err(error) = accounts.connect().await {
-                        console::error!("Error: {}", error.to_string());
+                        console::error!(error.to_string());
                     }
                 });
             });
@@ -50,6 +50,15 @@ pub(crate) fn sign_in_page(props: &Props) -> Html {
         }
         Some(accounts) => {
             let account = accounts.primary().unwrap();
+            let api = use_api();
+            let sign_in = Callback::from(move |_| {
+                let api = api.clone();
+                wasm_bindgen_futures::spawn_local(async move {
+                    if let Err(error) = api.sign_in().await {
+                        console::error!(error.to_string());
+                    }
+                })
+            });
             html! {
                 <Tracks>
                     <Track>
@@ -65,7 +74,7 @@ pub(crate) fn sign_in_page(props: &Props) -> Html {
                         <Branch width={100} class="ml-[200px]" color={RailColor::Cyan} />
                         <Rail class="w-[100px]" color={RailColor::Cyan} />
                         <Ring color={RailColor::Cyan} />
-                        <DisplayButton class="ml-4">
+                        <DisplayButton class="ml-4" onclick={sign_in}>
                             {"Sign in"}
                         </DisplayButton>
                     </Track>

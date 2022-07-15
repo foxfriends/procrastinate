@@ -46,6 +46,8 @@ pub(crate) async fn verify(
         Some(cookie) => cookie,
     };
     let message = make_message(&address, cookie.value());
+    let signature = hex::decode(signature)
+        .map_err(|_| actix_web::error::ErrorBadRequest("Signature must be hex encoded"))?;
     let recovery = Recovery::from_raw_signature(message, signature)
         .map_err(|_| actix_web::error::ErrorBadRequest("Invalid signature"))?;
     let signer = web3

@@ -40,7 +40,7 @@ impl Accounts {
         self.accounts.first().cloned()
     }
 
-    pub async fn connect(&self) -> web3::error::Result<Vec<Address>> {
+    pub async fn connect(&self) -> web3::Result<Vec<Address>> {
         self.web3.eth().request_accounts().await
     }
 }
