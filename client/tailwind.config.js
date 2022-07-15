@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.rs"],
+  content: ["./src/**/*.rs", "./index.html"],
   theme: {
     extend: {
       colors: {
@@ -27,6 +27,7 @@ module.exports = {
       fontFamily: {
         body: ["Merriweather Sans", "sans-serif"],
         display: ["Basteleur", "sans-serif"],
+        mono: ["Fira Code", "Fira Mono", "monospace"],
       },
     },
   },

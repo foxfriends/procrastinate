@@ -24,5 +24,9 @@ fn app() -> Html {
 }
 
 fn main() {
-    yew::start_app::<App>();
+    let app_root = gloo::utils::document()
+        .query_selector("#app")
+        .unwrap()
+        .expect("Must be run on a page with `#app`");
+    yew::start_app_in_element::<App>(app_root);
 }

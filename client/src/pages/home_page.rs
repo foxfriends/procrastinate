@@ -19,7 +19,9 @@ pub(crate) fn home_page() -> Html {
                     </div>
 
                     // Cyan bottom line --o
-                    <img class="relative shrink-0" src="/public/rail-fork.svg" />
+                    <svg class="relative shrink-0" width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 4 C100 4,100 96,200 96" stroke-linecap="square" stroke-width="8" stroke="url(#yellow-cyan)" fill="none" />
+                    </svg>
                     <div class="mt-auto basis-[200px] h-rail-lg bg-cyan" />
                     <div class="relative h-rail-lg w-ring-lg mt-auto shrink-0 translate-x-[-4px]">
                         <div class="absolute at-center w-rail-lg h-rail-lg shrink-0 bg-cyan rounded-full" />

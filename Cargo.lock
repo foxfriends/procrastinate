@@ -592,6 +592,7 @@ dependencies = [
  "hex",
  "serde",
  "wasm-bindgen-futures",
+ "web-sys",
  "web3",
  "yew",
  "yew-router",

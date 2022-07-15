@@ -24,6 +24,10 @@ impl Account {
     pub fn checksum(&self) -> Checksum {
         Checksum(self.address)
     }
+
+    pub fn obscured(&self) -> Obscured {
+        Obscured(self.address)
+    }
 }
 
 impl fmt::Display for Account {
@@ -47,5 +51,20 @@ impl fmt::Display for Checksum {
             }
         }
         Ok(())
+    }
+}
+
+#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+pub struct Obscured(Address);
+
+impl fmt::Display for Obscured {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let checksum_str = Checksum(self.0).to_string();
+        write!(
+            f,
+            "{}…{}",
+            &checksum_str[..5],
+            &checksum_str[checksum_str.len() - 3..]
+        )
     }
 }

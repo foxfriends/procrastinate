@@ -11,6 +11,7 @@ gloo = "0.8.0"
 hex = "0.4.3"
 serde = { version = "1.0.139", features = ["derive"] }
 wasm-bindgen-futures = "0.4.31"
+web-sys = { version = "0.3.58", features = ["Event"] }
 web3 = { version = "0.18.0", default-features = false, features = ["wasm", "eip-1193"] }
 yew = "0.19.3"
 yew-router = "0.16.0"
