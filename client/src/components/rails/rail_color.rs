@@ -21,8 +21,12 @@ impl RailColor {
             RailColor::Red => classes!("bg-red"),
             RailColor::Cyan => classes!("bg-cyan"),
             RailColor::Yellow => classes!("bg-yellow"),
-            RailColor::RedToCyan => classes!("bg-gradient-to-r", "from-red", "via-yellow", "to-cyan"),
-            RailColor::CyanToRed => classes!("bg-gradient-to-r", "from-cyan", "via-yellow", "to-red"),
+            RailColor::RedToCyan => {
+                classes!("bg-gradient-to-r", "from-red", "via-yellow", "to-cyan")
+            }
+            RailColor::CyanToRed => {
+                classes!("bg-gradient-to-r", "from-cyan", "via-yellow", "to-red")
+            }
             RailColor::RedToYellow => classes!("bg-gradient-to-r", "from-red", "to-yellow"),
             RailColor::YellowToRed => classes!("bg-gradient-to-r", "from-yellow", "to-red"),
             RailColor::CyanToYellow => classes!("bg-gradient-to-r", "from-cyan", "to-yellow"),
