@@ -1,7 +1,8 @@
 use crate::extractor::{EthereumAddress, Session};
 use actix_web::cookie::time::Duration;
 use actix_web::cookie::{Cookie, SameSite};
-use actix_web::{post, web, HttpRequest, HttpResponse, Responder};
+use actix_web::http::header::{CacheControl, CacheDirective};
+use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
 use uuid::Uuid;
 use web3::types::Recovery;
 use web3::{transports::Http, Web3};
@@ -28,6 +29,11 @@ pub(crate) async fn challenge(address: EthereumAddress) -> actix_web::Result<imp
     Ok(HttpResponse::Ok()
         .cookie(cookie)
         .body(make_message(&address, &challenge_nonce)))
+}
+
+#[get("/api/auth")]
+pub(crate) async fn check(_session: Session) -> actix_web::Result<impl Responder> {
+    Ok(HttpResponse::Ok().finish())
 }
 
 #[post("/api/auth/submit")]
@@ -73,5 +79,6 @@ pub(crate) async fn verify(
     Ok(HttpResponse::Ok()
         .cookie(removal)
         .cookie(session.into_cookie())
+        .insert_header(CacheControl(vec![CacheDirective::NoStore]))
         .finish())
 }

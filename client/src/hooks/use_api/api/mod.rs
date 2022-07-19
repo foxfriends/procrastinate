@@ -1,5 +1,6 @@
 use gloo::net::http::Response;
 
+mod check_auth;
 mod error;
 mod sign_in;
 
