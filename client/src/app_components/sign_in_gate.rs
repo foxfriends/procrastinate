@@ -87,10 +87,9 @@ pub(crate) fn sign_in_gate(props: &Props) -> Html {
             Some(account) => html! {
                 <Tracks>
                     <Track>
-                        <Rail class="w-[200px]" color={RailColor::RedToCyan} />
-                        <Rail class="w-[100px]" color={RailColor::Cyan} />
-                        <Stop color={RailColor::Cyan} />
-                        <div class="ml-4 font-display text-lg text-cyan/90">
+                        <Rail class="w-[150px]" color={RailColor::Yellow} />
+                        <Stop color={RailColor::Yellow} />
+                        <div class="ml-4 font-display text-lg text-yellow/90">
                             {"Connected as: "}
                             <span class="font-mono font-semibold">{account.obscured()}</span>
                         </div>

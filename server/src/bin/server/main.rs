@@ -12,7 +12,7 @@ async fn main() -> anyhow::Result<()> {
     let host = *env::HOST;
     let port = *env::PORT;
 
-    log::info!("Redlack served on {}:{}", host, port);
+    log::info!("Procrastinate served on {}:{}", host, port);
 
     let server = Server::new(
         &*env::DATABASE_URL,
